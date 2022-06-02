@@ -1,13 +1,32 @@
 <ion-content [fullscreen]="true">
-  <app-toolbar
-    *ngIf="countryYear"
-    [title]="'Holidays of {{ countryYear.country_code }} at year {{ countryYear.year }}'"
-  ></app-toolbar>
-  <ion-card>
-    <ion-list>
+  <app-toolbar [title]="'Details'" [backButton]="true"></app-toolbar>
+  <ion-text class="ion-margin ion-text-center">
+    <h1>
+      Holidays of {{ countryYear.country_code }} at year {{ countryYear.year }}
+    </h1>
+  </ion-text>
+  <ion-card *ngFor="let holiday of (holidays$ | async)">
+    <ion-card-header>
+      <ion-card-subtitle>{{ holiday.name }}</ion-card-subtitle>
+      <ion-card-title>
+        {{ holiday.date }}
+        <ion-chip *ngFor="let type of holiday.types">
+          <ion-label>{{ type }}</ion-label>
+        </ion-chip>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
       <ion-item>
-        <ion-text> Name: {{ holiday.name }} </ion-text>
+        <ion-text> {{ holiday.localName }} </ion-text>
       </ion-item>
-    </ion-list>
+      <ion-list *ngIf="(holiday.regions ?? []).length > 0">
+        <ion-label position="stacked">Regions: </ion-label>
+        <ion-item>
+          <ion-chip *ngFor="let region of holiday.regions">
+            <ion-label>{{ region }}</ion-label>
+          </ion-chip>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
   </ion-card>
 </ion-content>

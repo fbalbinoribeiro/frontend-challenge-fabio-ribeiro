@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
   {
     path: 'home',
     loadChildren: () =>
       import('./pages/home/home.module').then((m) => m.HomePageModule),
-  },
-  {
-    path: 'message/:id',
-    loadChildren: () =>
-      import('./pages/view-message/view-message.module').then(
-        (m) => m.ViewMessagePageModule
-      ),
+    canActivate: [UserGuard],
   },
   {
     path: 'login',
@@ -23,9 +23,10 @@ const routes: Routes = [
     path: 'detail/:code/:year',
     loadChildren: () =>
       import('./pages/detail/detail.module').then((m) => m.DetailPageModule),
+    canActivate: [UserGuard],
   },
   {
-    path: '',
+    path: '**',
     redirectTo: 'login',
     pathMatch: 'full',
   },

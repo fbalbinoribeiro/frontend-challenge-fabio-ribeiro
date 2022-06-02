@@ -1,16 +1,24 @@
 <ion-content [fullscreen]="true">
   <app-toolbar [title]="'Home'"></app-toolbar>
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  <ion-chip
+    *ngFor="let year of years"
+    [color]="getColor(year)"
+    (click)="setYear(year)"
+  >
+    <ion-label>
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      {{ year }}
+    </ion-label>
+  </ion-chip>
 
   <ion-list>
-    <div *ngFor="let country of countries" (click)="getDetails(country)">
-      {{ country.code }} | {{ country.name }}
-    </div>
-    <!-- <app-message
-      *ngFor="let message of getMessages()"
-      [message]="message"
-    ></app-message> -->
+    <ion-item
+      *ngFor="let country  of (countries$  | async)"
+      (click)="getDetails(country)"
+    >
+      <ion-label>
+        <h2>{{ country.code }} - {{ country.name }}</h2>
+      </ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

@@ -1,8 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { MessageComponentModule } from '../message/message.module';
-
 import { HomePage } from './home.page';
 
 describe('HomePage', () => {
@@ -11,8 +10,12 @@ describe('HomePage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
-      imports: [IonicModule.forRoot(), MessageComponentModule, RouterModule.forRoot([])]
+      declarations: [HomePage],
+      imports: [
+        IonicModule.forRoot(),
+        HttpClientModule,
+        RouterTestingModule.withRoutes([]),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);
@@ -22,5 +25,15 @@ describe('HomePage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('returns secondary color if year is equal to selectedYear', () => {
+    component.selectedYear = 2020;
+    expect(component.getColor(2020)).toBe('secondary');
+  });
+
+  it('returns primary color if year is different to selectedYear', () => {
+    component.selectedYear = 2024;
+    expect(component.getColor(2020)).toBe('dark');
   });
 });

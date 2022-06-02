@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CountryYearDto } from 'src/app/dtos/country-year-dto';
 import { CountryMapper } from 'src/app/mappers/country-mapper';
 import { Holiday } from 'src/app/models/holiday';
@@ -14,7 +14,7 @@ import { HolidaysService } from 'src/app/services/api/holidays.service';
 export class DetailPage implements OnInit, OnDestroy {
   paramsSub$: Subscription;
   countryYear: CountryYearDto;
-  holiday: Holiday;
+  holidays$: Observable<Holiday[]>;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -25,7 +25,7 @@ export class DetailPage implements OnInit, OnDestroy {
         params.get('code'),
         +params.get('year')
       );
-      this.holiday = await this.holidaysService.getHolidaysByCountryAndYear(
+      this.holidays$ = this.holidaysService.getHolidaysByCountryAndYear(
         this.countryYear
       );
     });

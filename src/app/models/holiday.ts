@@ -2,8 +2,8 @@
 export interface Holiday {
   date: Date;
   name: string;
-  local_name: string;
-  country_code: string;
+  localName: string;
+  countryCode: string;
   regions: string[];
   types: string[];
 }

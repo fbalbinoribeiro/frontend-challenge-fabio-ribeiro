@@ -1,51 +1,36 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CountriesDto } from 'src/app/dtos/countries-dto';
 import { CountryYearDto } from 'src/app/dtos/country-year-dto';
+import { HolidaysDto } from 'src/app/dtos/holidays-dto';
+import { CountryMapper } from 'src/app/mappers/country-mapper';
+import { HolidayMapper } from 'src/app/mappers/holiday-mapper';
 import { Country } from 'src/app/models/country';
 import { Holiday } from 'src/app/models/holiday';
 import { environment } from 'src/environments/environment';
-import { LoadingService } from '../loading.service';
+import { GenericApiService } from './generic-api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HolidaysService {
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly loadingService: LoadingService
-  ) {}
+  constructor(private readonly genericApiService: GenericApiService) {}
 
-  async getCountries(): Promise<Country[]> {
-    this.loadingService.loading$.next(true);
-    const countriesDto: CountriesDto = await this.httpClient
-      .get<CountriesDto>(`${environment.holidaysApi.url}/countries`, {
-        headers: this.getDefaultHeaders(),
-      })
-      .toPromise<CountriesDto>();
-    this.loadingService.loading$.next(false);
-    return countriesDto.countries;
+  getCountries(): Observable<Country[]> {
+    const countriesDto: Observable<Country[]> = this.genericApiService
+      .get<CountriesDto>(`${environment.holidaysApi.url}/countries`)
+      .pipe(map(CountryMapper.toCountriesList));
+    return countriesDto;
   }
 
-  async getHolidaysByCountryAndYear(
+  getHolidaysByCountryAndYear(
     countryYearDto: CountryYearDto
-  ): Promise<Holiday[]> {
-    this.loadingService.loading$.next(true);
-    const holidays = await this.httpClient
-      .post<Holiday[]>(`${environment.holidaysApi.url}/list`, countryYearDto, {
-        headers: this.getDefaultHeaders(),
-      })
-      .toPromise();
-    this.loadingService.loading$.next(false);
-    return holidays;
-  }
-
-  getDefaultHeaders() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8',
-      Authorization: `Bearer ${environment.holidaysApi.key}`,
-    });
-    return headers;
+  ): Observable<Holiday[]> {
+    const holidaysDto: Observable<Holiday[]> = this.genericApiService
+      .post<HolidaysDto>(`${environment.holidaysApi.url}/list`, countryYearDto)
+      .pipe(map(HolidayMapper.toHolidaysList));
+    return holidaysDto;
   }
 }

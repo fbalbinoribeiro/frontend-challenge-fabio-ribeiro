@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Country } from 'src/app/models/country';
 import { HolidaysService } from 'src/app/services/api/holidays.service';
+import { YearUtil } from 'src/app/utils/year-util';
 
 @Component({
   selector: 'app-home',
@@ -9,28 +11,34 @@ import { HolidaysService } from 'src/app/services/api/holidays.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  countries: Country[];
+  countries$: Observable<Country[]>;
+  selectedYear: number;
+  years: number[];
 
   constructor(
     private readonly holidaysService: HolidaysService,
     private readonly router: Router
   ) {}
 
-  async refresh(ev): Promise<void> {
-    await this.getCountries();
-    ev.detail.complete();
-  }
-
   async ngOnInit(): Promise<void> {
-    this.countries = await this.getCountries();
+    this.countries$ = await this.getCountries();
+    this.years = YearUtil.getLastActualAndNextYear();
+    this.selectedYear = YearUtil.getYear();
   }
 
-  async getCountries(): Promise<Country[]> {
-    return await this.holidaysService.getCountries();
+  getCountries(): Observable<Country[]> {
+    return this.holidaysService.getCountries();
   }
 
   async getDetails(country: Country): Promise<void> {
-    console.log(country.code);
-    this.router.navigate(['/detail', country.code, 2022]);
+    this.router.navigate(['/detail', country.code, this.selectedYear]);
+  }
+
+  getColor(year) {
+    return year === this.selectedYear ? 'secondary' : 'dark';
+  }
+
+  setYear(year) {
+    this.selectedYear = year;
   }
 }

@@ -9,6 +9,9 @@ export class ToolbarComponent implements OnInit {
   @Input()
   title = '';
 
+  @Input()
+  backButton = false;
+
   constructor() {}
 
   ngOnInit() {}

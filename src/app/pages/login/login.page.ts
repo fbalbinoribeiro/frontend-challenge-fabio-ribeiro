@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
-const loginValidator = {
+export const loginValidator = {
   email: {
     regex: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
   },
@@ -30,12 +31,16 @@ export class LoginPage implements OnInit {
 
   loginFormGroup: FormGroup = new FormGroup(this.loginFormControls);
 
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly loginService: LoginService
+  ) {}
 
   ngOnInit() {}
 
   login() {
     if (this.loginFormGroup.valid) {
+      this.loginService.setUser(this.loginFormGroup.getRawValue().email);
       this.router.navigate(['/home']);
     }
   }

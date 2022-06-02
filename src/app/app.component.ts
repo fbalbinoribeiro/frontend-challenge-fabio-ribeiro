@@ -19,7 +19,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.loading = await this.loadingController.create();
-
     this.loadingSub$ = this.loadingService.loading$.subscribe(
       async (loading) => {
         if (loading) {
@@ -32,6 +31,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.loadingSub$.unsubscribe();
+    if (this.loadingSub$) {
+      this.loadingSub$.unsubscribe();
+    }
   }
 }
