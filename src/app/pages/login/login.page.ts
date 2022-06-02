@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
   loginFormControls = {
     email: new FormControl(null, [
       Validators.required,
+      //there is an issue with the default validator =(
       Validators.pattern(new RegExp(loginValidator.email.regex)),
     ]),
     password: new FormControl(null, [
