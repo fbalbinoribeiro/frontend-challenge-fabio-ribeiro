@@ -46,4 +46,9 @@ describe('LoginPage', () => {
     const validator = loginValidator.email.regex;
     expect(validator.test('abc.123@a.b')).toBeFalsy();
   });
+
+  it('email abc.123@abc.com with an extra space should  pass the validator', () => {
+    const validator = loginValidator.email.regex;
+    expect(validator.test('abc.123@abc.com ')).toBeTruthy();
+  });
 });

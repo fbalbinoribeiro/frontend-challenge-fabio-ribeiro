@@ -5,7 +5,7 @@ import { LoginService } from 'src/app/services/login.service';
 
 export const loginValidator = {
   email: {
-    regex: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+    regex: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}[ ]{0,1}$/,
   },
   password: {
     minLength: 6,
@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
 
   login() {
     if (this.loginFormGroup.valid) {
-      this.loginService.setUser(this.loginFormGroup.getRawValue().email);
+      this.loginService.setUser(this.loginFormGroup.getRawValue().email.trim());
       this.router.navigate(['/home']);
     }
   }
