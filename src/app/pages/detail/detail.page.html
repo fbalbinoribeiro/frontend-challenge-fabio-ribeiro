@@ -1,0 +1,13 @@
+<ion-content [fullscreen]="true">
+  <app-toolbar
+    *ngIf="countryYear"
+    [title]="'Holidays of {{ countryYear.country_code }} at year {{ countryYear.year }}'"
+  ></app-toolbar>
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-text> Name: {{ holiday.name }} </ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

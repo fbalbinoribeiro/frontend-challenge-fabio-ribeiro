@@ -1,0 +1,54 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="logo">
+    <ion-img src="../../../assets/logo.png"></ion-img>
+  </div>
+  <ion-text class="ion-text-center">
+    <h1>Welcome to the <strong>Holidays in Your Country</strong>!</h1>
+  </ion-text>
+</ion-content>
+<ion-footer class="ion-padding form">
+  <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
+    <ion-item class="ion-margin-bottom">
+      <ion-label position="stacked">Email:</ion-label>
+      <ion-input
+        [formControl]="loginFormControls.email"
+        oninput="this.value = this.value.toLowerCase()"
+      ></ion-input>
+    </ion-item>
+    <app-form-error
+      *ngIf="loginFormControls.email.hasError('required')"
+      [text]="'Email is required'"
+    >
+    </app-form-error>
+    <app-form-error
+      *ngIf="loginFormControls.email.hasError('pattern')"
+      [text]="'Email is not valid'"
+    >
+    </app-form-error>
+    <ion-item class="ion-margin-bottom">
+      <ion-label position="stacked">Password:</ion-label>
+      <ion-input
+        type="password"
+        [formControl]="loginFormControls.password"
+      ></ion-input>
+    </ion-item>
+    <app-form-error
+      *ngIf="loginFormControls.password.hasError('required')"
+      [text]="'Password is required'"
+    >
+    </app-form-error>
+    <app-form-error
+      *ngIf="loginFormControls.password.hasError('minlength')"
+      [text]="'Password must have at least 6 characters'"
+    >
+    </app-form-error>
+    <ion-button
+      type="submit"
+      class="ion-margin-bottom"
+      expand="full"
+      [disabled]="!loginFormGroup.valid"
+    >
+      Entrar
+    </ion-button>
+  </form>
+</ion-footer>

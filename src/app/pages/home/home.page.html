@@ -1,0 +1,16 @@
+<ion-content [fullscreen]="true">
+  <app-toolbar [title]="'Home'"></app-toolbar>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <div *ngFor="let country of countries" (click)="getDetails(country)">
+      {{ country.code }} | {{ country.name }}
+    </div>
+    <!-- <app-message
+      *ngFor="let message of getMessages()"
+      [message]="message"
+    ></app-message> -->
+  </ion-list>
+</ion-content>

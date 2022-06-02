@@ -1,15 +1,16 @@
 {
-  "name": "frontend-challenge-fabio-ribeiro",
+  "name": "@fbalbinoribeiro/frontend-challenge-fabio-ribeiro",
+  "description": "An application to help people to find the holidays in your country",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Fábio Balbino Ribeiro",
+  "homepage": "https://github.com/fbalbinoribeiro",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "ionic serve",
+    "build": "ionic build",
+    "test": "ionic test",
+    "lint": "ionic lint",
+    "e2e": "ionic e2e"
   },
   "private": true,
   "dependencies": {
@@ -19,14 +20,16 @@
     "@angular/platform-browser": "~13.2.2",
     "@angular/platform-browser-dynamic": "~13.2.2",
     "@angular/router": "~13.2.2",
+    "@capacitor/android": "^3.5.1",
     "@capacitor/app": "1.1.1",
-    "@capacitor/core": "3.5.1",
+    "@capacitor/core": "^3.5.1",
     "@capacitor/haptics": "1.1.4",
     "@capacitor/keyboard": "1.2.2",
     "@capacitor/status-bar": "1.0.8",
     "@ionic/angular": "^6.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
+    "yarn": "^1.22.18",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -39,7 +42,7 @@
     "@angular/compiler": "~13.2.2",
     "@angular/compiler-cli": "~13.2.2",
     "@angular/language-service": "~13.2.2",
-    "@capacitor/cli": "3.5.1",
+    "@capacitor/cli": "^3.5.1",
     "@ionic/angular-toolkit": "^6.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
@@ -61,6 +64,5 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "typescript": "~4.4.4"
-  },
-  "description": "An Ionic project"
+  }
 }
