@@ -1,3 +1,3 @@
 # frontend-challenge-fabio-ribeiro
 
-An application to help people to find the holidays in your country
+An application to help people to find the holidays in their country
