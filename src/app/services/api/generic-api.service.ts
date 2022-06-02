@@ -17,7 +17,7 @@ export class GenericApiService {
       .get<T>(url, {
         headers: this.getDefaultHeaders(),
       })
-      .pipe(map(CaseUtil.keysToCamel));
+      .pipe(map((x) => CaseUtil.keysToCamel(x)));
     return data;
   }
 
@@ -26,7 +26,7 @@ export class GenericApiService {
       .post<T>(url, body, {
         headers: this.getDefaultHeaders(),
       })
-      .pipe(map(CaseUtil.keysToCamel));
+      .pipe(map((x) => CaseUtil.keysToCamel(x)));
     return data;
   }
 
