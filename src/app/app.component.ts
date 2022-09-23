@@ -6,6 +6,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  private KEY: string = 'abc';
+  
   constructor() {}
 
   ngOnInit(): void {}
